@@ -51,7 +51,7 @@ RUN cd /opt/caffe &&\
 
 ENV PYTHONPATH=/opt/caffe/python:$PYTHONPATH
 
-RUN echo "PYTHONPATH=/opt/caffe/python:$PYTHONPATH" >> /root/.bashrc
+RUN echo "export PYTHONPATH=/opt/caffe/python:$PYTHONPATH" >> /root/.bashrc
 RUN ln -s /opt/caffe/build/tools/caffe.bin /usr/bin/caffe
 
  
@@ -73,8 +73,7 @@ RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/s
 RUN sed -i '/^AcceptEnv/s/^/#/' /etc/ssh/sshd_config
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 RUN echo "export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:$PATH" >> /root/.bashrc && \
-    echo "export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/nccl/build/lib" >> /root/.bashrc && \
-    echo "export PYTHONPATH=/mxnet/python" >> /root/.bashrc
+    echo "export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/nccl/build/lib" >> /root/.bashrc 
 
 # setup timezone and locale
 ENV TZ=Asia/Tokyo
